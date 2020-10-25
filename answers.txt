@@ -1,0 +1,13 @@
+Questions:
+1. You call getContext("webgl")
+2. call this function and you get a blue circle
+  function fillCircle(x,y,radius) {
+    context.beginPath();
+    context.fillStyle = "blue";
+    context.arc(x,y,radius,0,2*Math.PI);
+    context.fill();
+    context.endPath;
+  }
+3.
+  Shorter way:
+  const countriesStartingWithN = countries.filter(country => country.startsWith("N"));

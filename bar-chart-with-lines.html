@@ -34,6 +34,48 @@
       }
 
       /* Insert your code here. */
+      function makeBar(x,y,width,height,color) {
+        context.fillStyle = color;
+        context.fillRect(x,y,width,height);
+      }
+      function makeBarWithLabel(text,x,y,width,height,color) {
+        context.fillStyle = color;
+        context.fillRect(x,y,width/2,height);
+        drawText(text,x+width/2+5,y+height/2);
+      }
+      const bars = 10;
+      const margin = 0.05; //5% margin so to make air between chart and canvas
+      const width = canvas.width*(1-2*margin); //decleare to make life easier
+      const height = canvas.height*(1-2*margin);
+      const marginX = width*margin; //find x and y margin in pixels
+      const marginY = height*margin;
+      const labelPercent = 0.15; // the percentage the label is going to take messured with the lne
+      const labelPx = width*0.1; //find the width of the label in pixels
+      const parameterPercent = 0.15 //margin for parameters section
+      const parameterPx = width*parameterPercent;
+      const barDif = height/(bars); //difference in distance between each bar, leaving space for the zero
+      const lineWidth = width - parameterPx - labelPx; //length of the lines
+      for(let i = 0; i<bars; i++) {
+        //didnt like the drawLineWithText function so splitt it up
+        drawLine(marginX + labelPx,marginY + i*barDif,marginX + labelPx + lineWidth,marginY + i*barDif);
+        drawText(String(10-i) + "000000",marginX,marginY + i*barDif);
+      }
+      makeBarWithLabel("Income",marginX+labelPx+lineWidth+5,marginY,parameterPx,parameterPx/3,"red");
+      makeBarWithLabel("Wealth",marginX+labelPx+lineWidth+5,marginY+parameterPx/2,parameterPx,parameterPx/3,"blue");
+      ///finished with the chart
+      //start with the bars
+      const taxPayers = taxForms.length; //the numbers of bars
+      const barDistance = lineWidth/(3*taxPayers+1);
+      for (let i = 0;i<taxPayers; i++) {
+        const income = taxForms[i].income;
+        const wealth = taxForms[i].wealth;
+        const incomeBarHeight = income/1000000*height;
+        const wealthBarHeight = wealth/1000000*height;
+        makeBar(marginX+labelPx+barDistance*(3*i+1),marginY+height-incomeBarHeight,barDistance,incomeBarHeight,"blue");
+        makeBar(marginX+labelPx+barDistance*(3*i+2),marginY+height-wealthBarHeight,barDistance,wealthBarHeight,"red");
+      }
+  
+
     </script>
   </body>
 </html>
